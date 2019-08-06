@@ -1,16 +1,20 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
-const { Model, attr, hasMany } = DS;
+const { Model, attr, hasMany, belongsTo } = DS;
 
 
   export default Model.extend({
 
-  // @attr('string') name;
-  // @attr('string') description;
-  // @hasMany('song') songs;
   name: attr('string'),
   description: attr('string'),
   songs: hasMany(),
+
+  /**************************/
+  //BM ADDED
+  /**************************/
+  // user: belongsTo(), //bands belongsTo user
+  // userEmail: attr('string'),
+  /**************************/
 
   isGreatBand: computed('songs.@each.rating', function() {
     let goodSongs = this.get('songs').filter((song) => song.rating >=4);

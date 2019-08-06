@@ -4,6 +4,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { empty, sort } from '@ember/object/computed';
 import { computed } from '@ember/object';
+import { capitalize } from 'rarwe/helpers/capitalize';
 
 export default Controller.extend({
   queryParams: {
@@ -13,19 +14,24 @@ export default Controller.extend({
   @tracked isAddingSong: false,
   @tracked newSongTitle: '',
   sortBy: 'ratingDesc',
-    searchTerm: '',
+  searchTerm: '',
 
-      isAddButtonDisabled: empty('newSongTitle'),
+  isAddButtonDisabled: empty('newSongTitle'),
 
-        matchingSongs: computed('model.songs.@each.title', 'searchTerm',
-          function () {
-            let searchTerm = this.searchTerm.toLowerCase();
-            return this.model.get('songs').filter((song) => {
-              return song.title.toLowerCase().includes(searchTerm);
-            });
-          }),
+  matchingSongs: computed('model.songs.@each.title', 'searchTerm',
+    function () {
+      let searchTerm = this.searchTerm.toLowerCase();
+      return this.model.get('songs').filter((song) => {
+        return song.title.toLowerCase().includes(searchTerm);
+      });
+    }),
 
-    @action addSong() {
+  newSongPlaceholder: computed('model.name', function() {
+    let bandName = this.model.name;
+    return `New ${capitalize(bandName)} song`;
+  }),
+
+@action addSong() {
   this.isAddingSong = true;
 },
 
@@ -36,9 +42,6 @@ export default Controller.extend({
 // @action saveSong(event) {
 @action async saveSong(event) {
   event.preventDefault();
-  // let newSong = Song.create({ title: this.newSongTitle });
-  // this.model.songs.pushObject(newSong);
-  // this.set('newSongTitle', '');
   let newSong = this.store.createRecord('song', {
     title: this.get('newSongTitle'),
     band: this.model

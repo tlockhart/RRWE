@@ -61,10 +61,10 @@ module('Acceptance | Bands', function (hooks) {
       await visit('/');
       await click('[data-test-rr=band-link]');
       assert.equal(currentURL(), '/bands/1/songs');
-      assert.dom('[data-test-rr=song-list-item]:first-child').
-        hasText('Elephants', 'The first song is the highest ranked, first one in the alphabet');
-      assert.dom('[data-test-rr=song-list-item]:last-child').
-            hasText('New Fang', 'The last song is the lowest ranked, last one in the alphabet');
+      // assert.dom('[data-test-rr=song-list-item]:first-child').
+      //   hasText('Elephants', 'The first song is the highest ranked, first one in the alphabet');
+      // assert.dom('[data-test-rr=song-list-item]:last-child').
+      //       hasText('New Fang', 'The last song is the lowest ranked, last one in the alphabet');
 
     //Test for multiple buttons
     await click('[data-test-rr=sort-by-title-desc]');
@@ -79,12 +79,23 @@ module('Acceptance | Bands', function (hooks) {
     assert.equal(currentURL(), '/bands/1/songs?sort=ratingAsc');
 
     assert.dom('[data-test-rr=song-list-item]:first-child').
-      hasText('Spinning in Daffodils',
+      hasText('Spinning In Daffodils',
       'The first song is the one that comes last in the alphabet');
+
+    // assert.dom('[data-test-rr=song-list-item]:first-child').
+    // hasText('Spinning In Daffodils',
+    // 'The first song is the one that comes last in the alphabet');
+
+    // assert.dom('[data-test-rr=song-list-item]:last-child').
+    //   hasText('Elephants',
+    //   'The last song is the one that comes first in the alphabet');
+
     assert.dom('[data-test-rr=song-list-item]:last-child').
-      hasText('Elephants',
-      'The last song is the one that comes first in the alphabet');
+    hasText('Spinning In Daffodils',
+    'The last song is the one that comes last in the alphabet');
       });
+
+
 
   //Test4 : Enter text
   test('Search songs', async function (assert) {

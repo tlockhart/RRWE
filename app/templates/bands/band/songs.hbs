@@ -30,7 +30,7 @@ data-test-rr="sort-by-title-asc"}}
   <ul class="rr-list">
     {{#each sortedSongs as |song|}}
     <li class="rr-list-item" data-test-rr="song-list-item">
-      {{song.title}}
+      {{capitalize song.title}}
       <StarRating class="fr"
         @rating={{song.rating}}
         @item={{song}}
@@ -39,7 +39,8 @@ data-test-rr="sort-by-title-asc"}}
     </li>
     {{else}}
     <li class="tc">
-      No {{model.name}} songs yet, why don't you <a href="#" onclick={{action "addSong"}}>create one?</a>
+      No {{capitalize model.name}} songs yet, why don't you <a href="#"
+onclick={{action "addSong"}}>create one?</a>
     </li>
     {{/each}}
   </ul>
@@ -51,7 +52,7 @@ data-test-rr="sort-by-title-asc"}}
       {{input type="text"
       class="rr-input"
       value=newSongTitle
-      placeholder="New song"
+      placeholder=newSongPlaceholder
       data-test-rr="new-song-input"}}
       <div class="rr-inline-form-group ml-auto">
         <button

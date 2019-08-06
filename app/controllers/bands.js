@@ -12,6 +12,7 @@ export default Controller.extend({
   isAddButtonDisabled: empty('newBandName'),
 
   router: service(),
+  // session: service(),
 
   @action addBand() {
     this.isAddingBand = true;
@@ -23,6 +24,13 @@ export default Controller.extend({
 
     @action async saveBand(event) {
     event.preventDefault();
+    /****************************/
+    //BM
+    /*****************************/
+    // let userEmail = this.session.data.authenticated.userEmail;
+    // let newBand = this.store.createRecord('band', { name: this.newBandName, userEmail: this.userEmail });
+    // await newBand.save();
+    /*****************************/
     // Create a new band
     let newBand = this.store.createRecord('band', { name: this.newBandName });
     await newBand.save();
