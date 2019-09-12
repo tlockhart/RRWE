@@ -10,11 +10,11 @@ export default Controller.extend({
   @tracked newBandName: '',
 
   isAddButtonDisabled: empty('newBandName'),
-
+  session: service(),
   router: service(),
-  // session: service(),
 
   @action addBand() {
+    // event.preventDefault();
     this.isAddingBand = true;
   },
 
@@ -22,18 +22,37 @@ export default Controller.extend({
     this.isAddingBand = false;
   },
 
+    // @action async saveBand(event) {
+    // event.preventDefault();
     @action async saveBand(event) {
-    event.preventDefault();
+      event.preventDefault();
     /****************************/
     //BM
     /*****************************/
-    // let userEmail = this.session.data.authenticated.userEmail;
-    // let newBand = this.store.createRecord('band', { name: this.newBandName, userEmail: this.userEmail });
+
+    let userEmail = this.session.data.authenticated.userEmail;
+    // let userPassword = this.session.data.authenticated.userPassword;
+    let userId = this.session.data.authenticated.token;
+    // console.log("User Email = ", userEmail);
+    // console.log("User Password = ", this.userPassword);
+    console.log("Band Name = ", this.newBandName);
+    alert(userEmail+" "+this.newBandName);
+
+    let newBand = this.store.createRecord('band', {
+      name: this.newBandName,
+      userEmail: userEmail,
+      description: null,
+      id: this.newBandName,
+      // user:userId
+    });
+
+    await newBand.save();
+
+    // Original Create a new band
+    // let newBand = this.store.createRecord('band', { name: this.newBandName });
     // await newBand.save();
     /*****************************/
-    // Create a new band
-    let newBand = this.store.createRecord('band', { name: this.newBandName });
-    await newBand.save();
+
 
     //transition to new page?
     this.setProperties({

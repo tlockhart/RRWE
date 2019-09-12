@@ -7,7 +7,11 @@ export default Controller.extend({
     async signUp(event) {
       event.preventDefault();
       let { email, password } = this;
-      let user = this.store.createRecord('user', { email, password });
+      let user = this.store.createRecord('user', {
+        email,
+        password,
+        bands: []
+      });
       await user.save();
       await this.router.transitionTo('login');
     }

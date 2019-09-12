@@ -21,6 +21,9 @@ You will need the following things properly installed on your computer.
 ## Running / Development
 
 * `ember serve --proxy=http://json-api.rockandrollwithemberjs.com`
+
+ `ember serve --proxy=https://auth-api.rockandrollwithemberjs.com/`
+
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 * Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 

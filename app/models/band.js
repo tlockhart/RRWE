@@ -7,14 +7,17 @@ const { Model, attr, hasMany, belongsTo } = DS;
 
   name: attr('string'),
   description: attr('string'),
-  songs: hasMany(),
+
 
   /**************************/
   //BM ADDED
   /**************************/
-  // user: belongsTo(), //bands belongsTo user
-  // userEmail: attr('string'),
+  userEmail: attr('string'),
+
+  //bands belongsTo user
+  user: belongsTo('user'),
   /**************************/
+  songs: hasMany(),
 
   isGreatBand: computed('songs.@each.rating', function() {
     let goodSongs = this.get('songs').filter((song) => song.rating >=4);
